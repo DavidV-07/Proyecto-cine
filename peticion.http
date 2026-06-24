@@ -1,0 +1,43 @@
+get http://localhost:3000/detalles-reservas
+Content-Type: application/json
+
+###
+
+get http://localhost:3000/detalles-reservas/id
+Content-Type: application/json
+
+{
+    "idDetalles": "1"
+}
+
+###
+
+post http://localhost:3000/detalles-reservas/crear
+Content-Type: application/json
+
+{
+    "idReserva" : "4", 
+    "idAsiento" : "1",
+    "precioAplicado" : "585"
+}
+
+###
+
+put  http://localhost:3000/detalles-reservas/actualizar
+Content-Type: application/json
+
+{
+    "idDetalles" : "1",
+    "idReserva" : "4", 
+    "idAsiento" : "1",
+    "precioAplicado" : "600"
+}
+
+###
+
+delete  http://localhost:3000/detalles-reservas/eliminar
+Content-Type: application/json
+
+{
+    "idDetalles": "3"
+}

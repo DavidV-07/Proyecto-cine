@@ -1,0 +1,44 @@
+//models
+
+const pool = require(`../db`)
+
+const obtenerTodo = async () => {
+    const result = await pool.query(`
+        SELECT * from peliculas
+        `)
+    
+    return result.rows
+}
+
+const crearPelicula = async (nombrePelicula, categoria, clasificacionEdad, duracion) => {
+    const result = await pool.query(`
+        INSERT INTO peliculas (nombre_pelicula, categoria, clasificacion_edad, duracion)
+        VALUES ($1, $2, $3, $4)
+        `, [nombrePelicula, categoria, clasificacionEdad, duracion])
+
+    return result.rows
+}
+
+const actualizarPelicula = async (idPelicula, nombrePelicula, categoria, clasificacionEdad, duracion) => {
+    const result = await pool.query(`
+        UPDATE peliculas
+        SET nombre_pelicula = $2,
+            categoria = $3,
+            clasificacion_edad = $4,
+            duracion = $5
+        WHERE id_pelicula = $1
+        `, [idPelicula ,nombrePelicula, categoria, clasificacionEdad, duracion])
+
+    return result.rows
+}
+
+const eliminarPelicula = async (idPelicula) => {
+    const result = await pool.query(`
+        DELETE FROM peliculas
+        WHERE id_pelicula = $1
+        `, [idPelicula])
+
+    return result.rows
+}
+
+module.exports = {obtenerTodo, crearPelicula, actualizarPelicula, eliminarPelicula}
