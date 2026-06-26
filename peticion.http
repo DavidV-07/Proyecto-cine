@@ -1,13 +1,13 @@
-get http://localhost:3000/detalles-reservas
+get http://localhost:3000/funciones
 Content-Type: application/json
 
 ###
 
-get http://localhost:3000/detalles-reservas/id
+get http://localhost:3000/funciones/id
 Content-Type: application/json
 
 {
-    "idDetalles": "1"
+    "idFuncion": "1"
 }
 
 ###

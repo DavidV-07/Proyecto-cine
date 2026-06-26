@@ -2,7 +2,13 @@ const pool = require(`../db`)
 
 const obtenerTodo = async () => {
     const result = await pool.query(`
-        SELECT * FROM salas
+        SELECT
+            s.id_sala,
+            ts.nombre_tipos_sala,
+            s.capacidad
+        FROM salas s
+        INNER JOIN tipos_sala ts
+        ON s.tipo_sala = ts.id_tipos_sala
         `)
     
     return result.rows
@@ -10,8 +16,14 @@ const obtenerTodo = async () => {
 
 const obtenerPorId = async (idSala) =>{
     const result = await pool.query(`
-        SELECT * FROM salas
-        WHERE id_sala = $1
+        SELECT
+            s.id_sala,
+            ts.nombre_tipos_sala,
+            s.capacidad
+        FROM salas s
+        INNER JOIN tipos_sala ts
+        ON s.tipo_sala = ts.id_tipos_sala
+        WHERE s.id_sala = $1
         `, [idSala])
 
     return result.rows

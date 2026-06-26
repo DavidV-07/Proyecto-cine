@@ -14,7 +14,7 @@ const getForId = async (req, res) => {
             throw(`campo vacio`)
         }
 
-        const result = await obtenerPorId(idFuncion);
+        const result = await obtenerFuncionPorId(idFuncion);
 
         res.json(result)
     } catch (error) {
@@ -32,7 +32,7 @@ const create = async (req, res) => {
             throw(`campo vacio`)
         }
 
-        const result = await crear(idSala, idPelicula, fechaEmision);
+        const result = await crearFuncion(idSala, idPelicula, fechaEmision);
 
         res.json(result)
     } catch (error) {
@@ -51,7 +51,7 @@ const update = async (req, res) => {
             throw(`campo vacio`)
         }
 
-        const result = await actualizar(idFuncion, idSala, idPelicula, fechaEmision);
+        const result = await actualizarFuncion(idFuncion, idSala, idPelicula, fechaEmision);
 
         res.json(result)
     } catch (error) {
@@ -67,7 +67,7 @@ const deletefuncion = async (req, res) => {
             throw(`campo vacio`)
         }
 
-        const result = await eliminar(idFuncion);
+        const result = await eliminarFuncion(idFuncion);
 
         res.json(result)
     } catch (error) {

@@ -4,7 +4,15 @@ const pool = require(`../db`)
 
 const obtenerTodo = async () => {
     const result = await pool.query(`
-        SELECT * from peliculas
+        SELECT
+            p.id_pelicula,
+            p.nombre_pelicula,
+            c.nombre_categoria,
+            cl.nombre_clasificacion_edad,
+            p.duracion
+        FROM peliculas p
+        INNER JOIN categorias c ON p.categoria = c.id_categoria
+        INNER JOIN clasificacion_edad cl ON p.clasificacion_edad = cl.id_clasificacion_edad
         `)
     
     return result.rows
