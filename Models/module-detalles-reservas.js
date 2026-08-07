@@ -31,12 +31,12 @@ const obtenerDetallesPorId = async (idDetalles) => {
     return result.rows
 }
 
-const crearDetallesReserva = async (idReserva, idAsiento, precioAplicado) => {
-    const result = await pool.query(`
+const crearDetallesReserva = async (client, idReserva, idAsiento, precioAsiento) => {
+    const result = await client.query(`
         INSERT INTO detalles_reserva (id_reserva, id_asiento, precio_aplicado)
         VALUES ($1, $2, $3)
         RETURNING *
-        `, [idReserva, idAsiento, precioAplicado]) 
+        `, [idReserva, idAsiento, precioAsiento])
         
     return result.rows
 }
@@ -64,4 +64,14 @@ const eliminarDetallesReserva = async (idDetalles) => {
     return result.rows
 }
 
-module.exports = {obtenerTodo, obtenerDetallesPorId, crearDetallesReserva, actualizarDetallesReserva, eliminarDetallesReserva}
+const eliminarDetallesReservaPorIdReserva = async (client, idReserva) => {
+    const result = await client.query(`
+        delete FROM detalles_reserva
+        WHERE id_reserva = $1
+        RETURNING *
+        `, [idReserva])
+
+    return result.rows
+}
+
+module.exports = {obtenerTodo, obtenerDetallesPorId, crearDetallesReserva, actualizarDetallesReserva, eliminarDetallesReserva, eliminarDetallesReservaPorIdReserva}

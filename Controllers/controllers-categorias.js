@@ -1,8 +1,23 @@
-const { obtenerTodo, crear, actualizacion, eliminacion } = require('../Models/models-categorias')
+const { obtenerTodo, obtenerPorId, crear, actualizacion, eliminacion } = require('../Models/models-categorias')
 
 const getall = async (req, res) =>{
     const result = await obtenerTodo()
     res.json(result)
+}
+
+const getForId = async (req, res) =>{
+    const idcategoria = req.body.idCategoria
+
+    try {
+
+        if (!idcategoria) {
+            throw('campo vacio!')
+        }
+
+        res.json(await obtenerPorId(idcategoria))
+    } catch(err) {
+        res.status(404).send(`error!\n\n${err}`)
+    }
 }
 
 const create = async (req, res) =>{
@@ -49,4 +64,4 @@ const deleteCategoria = async (req, res) =>{
     }
 }
 
-module.exports = { getall, create, update, deleteCategoria }
+module.exports = { getall, getForId, create, update, deleteCategoria }

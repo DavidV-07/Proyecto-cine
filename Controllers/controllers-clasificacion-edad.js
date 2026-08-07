@@ -1,8 +1,22 @@
-const {getall, create, update, deleteClasificacionEdad} = require(`../Models/models-clasificacion-edad`)
+const {getall, getForId, create, update, deleteClasificacionEdad} = require(`../Models/models-clasificacion-edad`)
 
-const visualizacion = async (req, res) => {
+const obtenerTodo = async (req, res) => {
     const result = await getall();
     res.json(result)
+}
+
+const obtenerPorId = async (req, res) => {
+    const idClasificacionEdad = req.body.idClasificacionEdad;
+    try {
+        const result = await getForId(idClasificacionEdad);
+         if (!idClasificacionEdad) {
+            throw (`campo id vacio`)
+        }
+
+        res.json(result)
+    } catch (error) {
+        res.status(400).send(`!error\n\n${error}`)
+    }
 }
 
 const crearClasificacionEdad = async (req, res) => {
@@ -54,4 +68,4 @@ const deleteClasificacion = async (req, res) => {
     }
 }
 
-module.exports = {deleteClasificacion, crearClasificacionEdad, visualizacion, actualizarClasificacion}
+module.exports = {deleteClasificacion, obtenerPorId, crearClasificacionEdad, obtenerTodo, actualizarClasificacion}

@@ -18,6 +18,16 @@ const obtenerTodo = async () => {
     return result.rows
 }
 
+const obtenerPorId = async (idPelicula) => {
+    const result = await pool.query(`
+        SELECT FROM peliculas
+        WHERE id_pelicula = $1
+        RETURNING *
+        `, [idPelicula])
+
+    return result.rows
+}
+
 const crearPelicula = async (nombrePelicula, categoria, clasificacionEdad, duracion) => {
     const result = await pool.query(`
         INSERT INTO peliculas (nombre_pelicula, categoria, clasificacion_edad, duracion)
@@ -49,4 +59,4 @@ const eliminarPelicula = async (idPelicula) => {
     return result.rows
 }
 
-module.exports = {obtenerTodo, crearPelicula, actualizarPelicula, eliminarPelicula}
+module.exports = {obtenerTodo, obtenerPorId, crearPelicula, actualizarPelicula, eliminarPelicula}

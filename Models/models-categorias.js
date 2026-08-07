@@ -6,6 +6,15 @@ async function obtenerTodo() {
     return result.rows
 } 
 
+async function obtenerPorId(id_categoria) {
+    const result = await pool.query(`
+    SELECT FROM categorias
+    WHERE id_categoria = $1    
+    `, [id_categoria])
+
+    return result.rows
+}
+
 async function crear(nueva_categoria) {
     const result = await pool.query(`
         INSERT INTO categorias (nombre_categoria)
@@ -35,4 +44,4 @@ async function eliminacion(id_categoria) {
     return result.rows
 }
 
-module.exports = { obtenerTodo, crear, actualizacion, eliminacion }
+module.exports = { obtenerTodo, obtenerPorId, crear, actualizacion, eliminacion }

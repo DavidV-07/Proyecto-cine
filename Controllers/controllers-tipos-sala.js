@@ -1,19 +1,36 @@
-const {eliminarTipoSala, actualizarTipoSala, crearTipoSala, mostrarSalas} = require(`../Models/module-tipos-sala`)
+const {obtenerPorId, eliminarTipoSala, actualizarTipoSala, crearTipoSala, mostrarSalas} = require(`../Models/module-tipos-sala`)
 
 const getall = async (req, res) => {
     const result = await mostrarSalas();
     res.json(result)
 }
 
-const create = async (req, res) => {
-    const nombreTipoSala = req.body.nombreTipoSala;
+const getForId = async (req, res) => {
+    const idTipoSala = req.body.idTipoSala
 
     try {
-        if (!nombreTipoSala) {
+
+        if (!id_tipos_sala) {
+            throw ('Campo Id, Vacio')
+        } 
+        const result = await obtenerPorId(idTipoSala);
+        res.json(result)
+    } catch (err) {
+        res.status(404).send(`error!\n\n${err}`)
+    }
+}
+
+
+const create = async (req, res) => {
+    const nombreTipoSala = req.body.nombreTipoSala;
+    const precioAsiento = req.body.precioAsiento;
+
+    try {
+        if (!nombreTipoSala || !precioAsiento) {
             throw res.status(400).send('campo vacio')
         }
 
-        const result = await crearTipoSala(nombreTipoSala);
+        const result = await crearTipoSala(nombreTipoSala, precioAsiento);
         res.json(result)
     
     } catch(err) {
@@ -56,4 +73,4 @@ const eliminarSala = async (req, res) => {
     }
 }
 
-module.exports = {getall, create, update, eliminarSala}
+module.exports = {getall, getForId, create, update, eliminarSala}

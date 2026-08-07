@@ -6,6 +6,15 @@ async function getall() {
     return result.rows
 }
 
+async function getForId(idClasificacionEdad) {
+    const result = await pool.query(`
+        SELECT FROM clasificacion_edad
+        WHERE id_clasificacion_edad = $1
+        `, [idClasificacionEdad])
+
+    return result.rows
+}
+
 async function create(nombreClasificacionEdad) {
     const result = await pool.query(`
         INSERT INTO clasificacion_edad (nombre_clasificacion_edad)
@@ -33,4 +42,4 @@ async function deleteClasificacionEdad(idClasificacionEdad) {
     return result.rows
 }
 
-module.exports = {getall, create, update, deleteClasificacionEdad}
+module.exports = {getall, getForId, create, update, deleteClasificacionEdad}

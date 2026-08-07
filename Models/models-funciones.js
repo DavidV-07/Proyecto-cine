@@ -1,5 +1,18 @@
 const pool = require(`../db`)
 
+const obtenerPrecioAsiento = async(client, idFuncion) => {
+    const result = await client.query(`
+        SELECT
+            ts.precio_asiento
+        FROM tipos_sala ts
+        INNER JOIN salas s on ts.id_tipos_sala = s.tipo_sala
+        INNER JOIN funciones f on s.id_sala = f.id_sala
+        WHERE f.id_funcion = $1
+        `, [idFuncion])
+    
+    return result.rows
+}
+
 const obtenerTodo = async () => {
     const result = await pool.query(`
         SELECT 
@@ -64,4 +77,4 @@ const eliminarFuncion = async (idFuncion) => {
     return result.rows
 }
 
-module.exports = {obtenerTodo, obtenerFuncionPorId, crearFuncion, actualizarFuncion, eliminarFuncion}
+module.exports = {obtenerPrecioAsiento, obtenerTodo, obtenerFuncionPorId, crearFuncion, actualizarFuncion, eliminarFuncion}

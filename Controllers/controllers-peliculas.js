@@ -1,9 +1,24 @@
 //controller
 
-const {obtenerTodo, crearPelicula, actualizarPelicula, eliminarPelicula} = require(`../Models/models-peliculas`);
+const {obtenerTodo, obtenerPorId, crearPelicula, actualizarPelicula, eliminarPelicula} = require(`../Models/models-peliculas`);
 
 const getall = async (req, res) => {
     res.json(await obtenerTodo())
+}
+
+const getForId = async (req, res) => {
+    const idPelicula = req.body.idPelicula
+
+    try {
+        if (!idPelicula) {
+            throw (`campo vacio`)
+        }
+        const result = await ObtenerPorId(idPelicula);
+
+        res.json(result)
+    } catch (error) {
+        res.status(400).send(`Error\n\n${error}`)
+    }
 }
 
 const create = async (req, res) => {
@@ -60,4 +75,4 @@ const deletePelicula = async (req, res) => {
     }
 }
 
-module.exports = {getall, create, update, deletePelicula}
+module.exports = {getall, getForId, create, update, deletePelicula}

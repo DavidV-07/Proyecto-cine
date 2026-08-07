@@ -6,23 +6,33 @@ async function mostrarSalas() {
     return result.rows
 }
 
-async function crearTipoSala(nombreTipoSala) {
+async function obtenerPorId(idTipoSala) {
     const result = await pool.query(`
-        INSERT INTO tipos_sala ("nombre_tipos_sala")
-        VALUES ($1)`, [nombreTipoSala])
+        SELECT FROM tipos_sala
+        WHERE id_tipos_sala = $1
+        RETURNING *`, [idTipoSala])
+}
+
+async function crearTipoSala(nombreTipoSala, precioAsiento) {
+    const result = await pool.query(`
+        INSERT INTO tipos_sala (nombre_tipos_sala, precio_asiento)
+        VALUES ($1, $2)
+        RETURNING *`, [nombreTipoSala, precioAsiento])
 }
 
 async function actualizarTipoSala(nombreTipoSala, idTipoSala) {
     const result = await pool.query(`
         UPDATE tipos_sala
         SET nombre_tipos_sala = $1
-        WHERE id_tipos_sala = $2`, [nombreTipoSala, idTipoSala])
+        WHERE id_tipos_sala = $2
+        RETURNING *`, [nombreTipoSala, idTipoSala])
 }
 
 async function eliminarTipoSala(idTipoSala) {
     const result = await pool.query(`
         DELETE FROM tipos_sala
-        WHERE id_tipos_sala = $1`, [idTipoSala])
+        WHERE id_tipos_sala = $1
+        RETURNING *`, [idTipoSala])
 }
 
-module.exports = {eliminarTipoSala, actualizarTipoSala, crearTipoSala, mostrarSalas}
+module.exports = {obtenerPorId, eliminarTipoSala, actualizarTipoSala, crearTipoSala, mostrarSalas}
