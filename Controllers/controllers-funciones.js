@@ -10,9 +10,6 @@ const getForId = async (req, res) => {
     const idFuncion = req.body.idFuncion
 
     try {
-        if(!idFuncion) {
-            throw(`campo vacio`)
-        }
 
         const result = await obtenerFuncionPorId(idFuncion);
 

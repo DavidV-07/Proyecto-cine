@@ -27,9 +27,6 @@ const create = async (req, res) => {
     const idSala = req.body.idSala
 
     try {
-        if (!codigoAsiento || !idSala) {
-            throw (`campo vacio`)
-        }
 
         const result = await crearAsiento(codigoAsiento, idSala);
 

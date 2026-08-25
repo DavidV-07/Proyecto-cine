@@ -23,9 +23,6 @@ const crearClasificacionEdad = async (req, res) => {
 
     try {
         const nombreClasificacionEdad = req.body.nombreClasificacionEdad;
-        if(!nombreClasificacionEdad) {
-            throw (`Campo nombre vacio`)
-        }
 
         res.json(await create(nombreClasificacionEdad))
     } catch (error) {

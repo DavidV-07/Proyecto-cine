@@ -28,10 +28,6 @@ const create = async (req, res) => {
 
     try {
 
-        if(!nombreUsuario || !apellidoUsuario || !cedulaUsuario || !emailUsuario || !tlfUsuario) {
-            throw (`Campo vacio!`)
-        }
-
         const result = await crearUsuario(nombreUsuario, apellidoUsuario, cedulaUsuario, emailUsuario, tlfUsuario)
 
         res.json(result)

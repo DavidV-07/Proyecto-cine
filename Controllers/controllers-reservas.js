@@ -13,9 +13,6 @@ const getForId = async (req, res) => {
     const idReserva = req.body.idReserva
 
     try {
-        if(!idReserva) {
-            throw(`campo vacio`)
-        }
 
         const result = await obtenerReservaPorId(idReserva)
 
@@ -35,14 +32,6 @@ const create = async (req, res) => {
     try {
 
         await client.query('BEGIN')
-
-        //condicional para verificar campos vacios
-        if(!idUsuario || !idFuncion) {
-            throw new Error(`campo vacio`)
-        //condicional para verificacion del envio de un array y que no este vacio
-        } else if (!Array.isArray(idAsiento) || idAsiento.length === 0) {
-            throw new Error(`tipo de dato no valido!`)
-        }
 
         //ciclo de validacion de cada puesto disponible
         for (let i = 0; i < idAsiento.length; i++) {

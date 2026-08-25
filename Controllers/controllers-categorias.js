@@ -22,12 +22,9 @@ const getForId = async (req, res) =>{
 
 const create = async (req, res) =>{
     try {
-        const nueva_categoria = req.body.nombreCategoria
+        const nuevaCategoria = req.body.nombreCategoria
 
-        if (!nueva_categoria) {
-            throw('campo vacio!')
-        }
-        res.json(await crear(nueva_categoria))
+        res.json(await crear(nuevaCategoria))
     } catch (err) {
         res.status(404).send(`error!\n\n${err}`)
     }

@@ -26,9 +26,6 @@ const create = async (req, res) => {
     const precioAsiento = req.body.precioAsiento;
 
     try {
-        if (!nombreTipoSala || !precioAsiento) {
-            throw res.status(400).send('campo vacio')
-        }
 
         const result = await crearTipoSala(nombreTipoSala, precioAsiento);
         res.json(result)

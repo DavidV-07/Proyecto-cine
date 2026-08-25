@@ -27,9 +27,6 @@ const create = async (req, res) => {
     const precioAplicado = req.body.precioAplicado
 
     try {
-        if(!idReserva || !idAsiento || !precioAplicado) {
-            throw(`campo vacio!`)
-        }
 
         const result = await crearDetallesReserva(idReserva, idAsiento, precioAplicado)
         res.json(result)

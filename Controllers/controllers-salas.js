@@ -29,10 +29,6 @@ const create = async (req, res) => {
 
     try {
 
-        if (!tipoSala || !capacidad) {
-            throw (`campo vacio`)
-        }
-
         const result = await crearSala(tipoSala, capacidad)
 
         res.json(result)

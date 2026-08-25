@@ -50,10 +50,6 @@ const update = async (req, res) => {
     try {
         const result = await actualizarPelicula(idPelicula, nombrePelicula, categoria, clasificacionEdad, duracion);
 
-        if(!idPelicula || !nombrePelicula || !categoria || !clasificacionEdad || !duracion) {
-            throw (`No puede haber un campo vacio!`)
-        }
-
         res.json(result)
     } catch (error) {
         res.status(400).send(`Error\n\n${error}`)
