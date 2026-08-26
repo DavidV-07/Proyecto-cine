@@ -3,7 +3,7 @@ const routerReservas = express.Router();
 const { getAll, getForId, create, update, deleteReserva } = require('../Controllers/controllers-reservas');
 
 //Importamos el esquema de validación de reservas
-const { crearReservaSchema } = require('../validations/reserva.validation');
+const { crearReservaSchema } = require('../validations/validations-reservas');
 
 //Importamos el middleware genérico
 const validarSchema = require('../middlewares/validarSchema');
