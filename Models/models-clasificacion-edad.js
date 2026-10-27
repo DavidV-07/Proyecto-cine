@@ -6,13 +6,13 @@ async function getall() {
     return result.rows
 }
 
-async function getForId(idClasificacionEdad) {
+async function getForId(id) {
     const result = await pool.query(`
-        SELECT FROM clasificacion_edad
+        SELECT * FROM clasificacion_edad
         WHERE id_clasificacion_edad = $1
-        `, [idClasificacionEdad])
+        `, [id])
 
-    return result.rows
+    return result.rows[0]
 }
 
 async function create(nombreClasificacionEdad) {

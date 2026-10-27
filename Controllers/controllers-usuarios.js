@@ -9,13 +9,25 @@ const getAll = async (req, res) => {
 }
 
 const getForId = async (req, res) => {
-    const idUsuario = req.body.idUsuario
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
+
     try {
-        const result = await obtenerPorId(idUsuario)
+        const result = await obtenerPorId(id)
+
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
+        }
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+    })
     }
 }
 
@@ -37,40 +49,53 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    const idUsuario = req.body.idUsuario
+    const {id} = req.params;
     const nombreUsuario = req.body.nombreUsuario
     const apellidoUsuario = req.body.apellidoUsuario
     const cedulaUsuario = req.body.cedulaUsuario
     const emailUsuario = req.body.emailUsuario
     const tlfUsuario = req.body.tlfUsuario
 
+    if(!id) {
+        return res.status(400).json({mensaje : `verifique que ningun campo este vacio`})
+    }
+
     try {
+        const result = await actualizarUsuario(id, nombreUsuario, apellidoUsuario, cedulaUsuario, emailUsuario, tlfUsuario)
 
-        if(!idUsuario || !nombreUsuario || !apellidoUsuario || !cedulaUsuario || !emailUsuario || !tlfUsuario) {
-            throw (`Campo vacio!`)
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
-
-        const result = await actualizarUsuario(idUsuario, nombreUsuario, apellidoUsuario, cedulaUsuario, emailUsuario, tlfUsuario)
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        })
     }
 }
 
 const deleteUsuario = async (req, res) => {
-    const idUsuario = req.body.idUsuario
+    const {id} = req.params;
+
+    if(!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
+
     try {
+        const result = await eliminarUsuario(id)
 
-        if(!idUsuario) {
-            throw (`Campo vacio!`)
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
-
-        const result = await eliminarUsuario(idUsuario)
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+    })
     }
 }
 

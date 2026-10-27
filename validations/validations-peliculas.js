@@ -7,4 +7,6 @@ const crearPeliculaSchema = joi.object({
     duracion : joi.string().trim().max(10).required()
 })
 
-module.exports = {crearPeliculaSchema}
+const actualizarPeliculaSchema = crearPeliculaSchema.fork([`nombrePelicula`, `categoria`, `clasificacionEdad`, `duracion`], (schema) => schema.optional()).min(1);
+
+module.exports = {crearPeliculaSchema, actualizarPeliculaSchema}

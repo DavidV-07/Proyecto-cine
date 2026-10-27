@@ -6,13 +6,13 @@ async function obtenerTodo() {
     return result.rows
 } 
 
-async function obtenerPorId(id_categoria) {
+async function obtenerPorId(id) {
     const result = await pool.query(`
-    SELECT FROM categorias
+    SELECT * FROM categorias
     WHERE id_categoria = $1    
-    `, [id_categoria])
+    `, [id])
 
-    return result.rows
+    return result.rows[0]
 }
 
 async function crear(nueva_categoria) {

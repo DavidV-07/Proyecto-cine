@@ -6,17 +6,25 @@ const getall = async (req, res) => {
 }
 
 const getForId = async (req, res) => {
-    const idTipoSala = req.body.idTipoSala
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    } 
 
     try {
+        const result = await obtenerPorId(id);
 
-        if (!id_tipos_sala) {
-            throw ('Campo Id, Vacio')
-        } 
-        const result = await obtenerPorId(idTipoSala);
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
+        }
+
         res.json(result)
-    } catch (err) {
-        res.status(404).send(`error!\n\n${err}`)
+    } catch (error) {
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 
@@ -37,36 +45,48 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     const nombre_tipos_sala = req.body.nombreTipoSala
-    const id_tipos_sala = req.body.idTipoSala
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
 
     try {
-        if (!nombre_tipos_sala) {
-            throw res.status(400).send('Campo Nombre, Vacio')
-        }
+        const result = await actualizarTipoSala(nombre_tipos_sala, id);
 
-        if (!id_tipos_sala) {
-            throw res.status(400).send('Campo Id, Vacio')
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
-        const result = await actualizarTipoSala(nombre_tipos_sala, id_tipos_sala);
         res.json(result)
 
-    } catch (err) {
-        res.send(`error!\n\n${err}`)
+    } catch (error) {
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 
 const eliminarSala = async (req, res) => {
-    const id_tipos_sala = req.body.idTipoSala
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
 
     try {
+        const result = await eliminarTipoSala(id);
 
-        if (!id_tipos_sala) {
-            throw res.status(400).send('Campo Id, Vacio')
-        } 
-        const result = await eliminarTipoSala(id_tipos_sala);
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
+        }
+
         res.json(result)
-    } catch (err) {
-        res.status(404).send(`error!\n\n${err}`)
+    } catch (error) {
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 

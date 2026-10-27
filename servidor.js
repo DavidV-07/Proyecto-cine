@@ -24,7 +24,7 @@ async function start() {
 
     app.use('/categorias', routerCategoria);
     app.use('/tipos-sala', routerTipoSala);
-    app.use(`/clasificacion`, routerClasificacionEdad);
+    app.use(`/clasificacion-edad`, routerClasificacionEdad);
     app.use(`/peliculas`, routerPeliculas);
     app.use(`/usuarios`, routerUsuarios);
     app.use(`/salas`, routerSalas);

@@ -1,16 +1,11 @@
 //ASIENTOS
 
 get http://localhost:3000/asientos
-Content-Type: application/json
+
 
 ###
 
-get http://localhost:3000/asientos/id
-Content-Type: application/json
-
-{
-    "idAsiento": "1"
-}
+get http://localhost:3000/asientos/4
 
 ###
 
@@ -24,23 +19,17 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/asientos/actualizar
+put  http://localhost:3000/asientos/actualizar/4
 Content-Type: application/json
 
 {
-    "idAsiento" : "1",
-    "codigoAsiento" : "4", 
-    "idSala" : "1"
+    "codigoAsiento" : "E5", 
+    "idSala" : "35"
 }
 
 ###
 
-delete  http://localhost:3000/asientos/eliminar
-Content-Type: application/json
-
-{
-    "idAsiento": "39"
-}
+delete  http://localhost:3000/asientos/4
 
 //////////////////////////////////////////////////////////////
 ////////////////////////CATEGORIAS////////////////////////////
@@ -48,16 +37,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/categorias
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/categorias/id
-Content-Type: application/json
-
-{
-    "idCategoria": "1"
-}
+get http://localhost:3000/categorias/3
 
 ###
 
@@ -70,22 +53,16 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/categorias/actualizar
+put  http://localhost:3000/categorias/actualizar/3
 Content-Type: application/json
 
 {
-    "categoriaActualizar" : "1",
-    "idCategoria" : "4"
+    "nombreCategoria" : "Artistica"
 }
 
 ###
 
-delete  http://localhost:3000/categorias/eliminar
-Content-Type: application/json
-
-{
-    "idCategoria": "39"
-}
+delete  http://localhost:3000/categorias/2
 
 //////////////////////////////////////////////////////////////
 /////////////////// CLASIFICACION EDAD ///////////////////////
@@ -93,16 +70,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/clasificacion-edad
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/clasificacion-edad/id
-Content-Type: application/json
-
-{
-    "idCategoria": "1"
-}
+get http://localhost:3000/clasificacion-edad/3
 
 ###
 
@@ -115,22 +86,16 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/clasificacion-edad/actualizar
+put  http://localhost:3000/clasificacion-edad/actualizar/4
 Content-Type: application/json
 
 {
-    "idClasificacionEdad" : "1",
-    "nombreClasificacionEdad" : "4"
+    "nombreClasificacionEdad" : "E"
 }
 
 ###
 
-delete  http://localhost:3000/clasificacion-edad/eliminar
-Content-Type: application/json
-
-{
-    "idClasificacionEdad": "39"
-}
+delete  http://localhost:3000/clasificacion-edad/5
 
 //////////////////////////////////////////////////////////////
 /////////////////// DETALLES RESERVAS ///////////////////////
@@ -138,16 +103,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/detalles-reservas
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/detalles-reservas/id
-Content-Type: application/json
-
-{
-    "idDetalles": "1"
-}
+get http://localhost:3000/detalles-reservas/8
 
 ###
 
@@ -162,24 +121,18 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/detalles-reservas/actualizar
+put  http://localhost:3000/detalles-reservas/actualizar/1
 Content-Type: application/json
 
 {
-    "idDetalles" : "1",
     "idReserva" : "4",
-    "idAsiento" : "1",
-    "precioAplicado" : "4"
+    "idAsiento" : "5",
+    "precioAplicado" : "400"
 }
 
 ###
 
-delete  http://localhost:3000/detalles-reservas/eliminar
-Content-Type: application/json
-
-{
-    "idDetalles": "39"
-}
+delete  http://localhost:3000/detalles-reservas/8
 
 //////////////////////////////////////////////////////////////
 //////////////////////// FUNCIONES ///////////////////////////
@@ -187,16 +140,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/funciones
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/funciones/id
-Content-Type: application/json
-
-{
-    "idFuncion": "1"
-}
+get http://localhost:3000/funciones/1
 
 ###
 
@@ -211,24 +158,18 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/funciones/actualizar
+put  http://localhost:3000/funciones/actualizar/1
 Content-Type: application/json
 
 {
-    "idFuncion" : "1",
-    "idSala" : "4",
-    "idPelicula" : "1",
-    "fechaEmision" : "4"
+    "idSala" : "35",
+    "idPelicula" : "3",
+    "fechaEmision" : "2027-07-27T01:09:10.000Z"
 }
 
 ###
 
-delete  http://localhost:3000/funciones/eliminar
-Content-Type: application/json
-
-{
-    "idFuncion": "39"
-}
+delete  http://localhost:3000/funciones/1
 
 //////////////////////////////////////////////////////////////
 //////////////////////// PELICULAS ///////////////////////////
@@ -236,16 +177,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/peliculas
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/peliculas/id
-Content-Type: application/json
-
-{
-    "idPelicula": "1"
-}
+get http://localhost:3000/peliculas/3
 
 ###
 
@@ -261,25 +196,19 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/peliculas/actualizar
+put  http://localhost:3000/peliculas/actualizar/3
 Content-Type: application/json
 
 {
-    "idPelicula" : "1",
-    "nombrePelicula" : "4d",
-    "categoria" : "1",
-    "clasificacionEdad" : "4",
-    "duracion" : "4"
+    "nombrePelicula" : "buzz light year",
+    "categoria" : "3",
+    "clasificacionEdad" : "2",
+    "duracion" : "100"
 }
 
 ###
 
-delete  http://localhost:3000/peliculas/eliminar
-Content-Type: application/json
-
-{
-    "idPelicula": "39"
-}
+delete  http://localhost:3000/peliculas/3
 
 //////////////////////////////////////////////////////////////
 //////////////////////// RESERVAS ///////////////////////////
@@ -287,16 +216,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/reservas
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/reservas/id
-Content-Type: application/json
-
-{
-    "idReserva": "1"
-}
+get http://localhost:3000/reservas/4
 
 ###
 
@@ -311,24 +234,19 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/reservas/actualizar
+put  http://localhost:3000/reservas/actualizar/4
 Content-Type: application/json
 
 {
-    "idReserva" : "1",
     "idUsuario" : "4",
     "idFuncion" : "1",
-    "totalPago" : "4"
+    "totalPago" : "400"
 }
 
 ###
 
-delete  http://localhost:3000/reservas/eliminar
-Content-Type: application/json
+delete  http://localhost:3000/reservas/4
 
-{
-    "idReserva": "39"
-}
 
 //////////////////////////////////////////////////////////////
 ////////////////////////// SALAS /////////////////////////////
@@ -336,16 +254,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/salas
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/salas/id
-Content-Type: application/json
-
-{
-    "idSala": "1"
-}
+get http://localhost:3000/salas/35
 
 ###
 
@@ -359,23 +271,17 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/salas/actualizar
+put  http://localhost:3000/salas/actualizar/35
 Content-Type: application/json
 
 {
-    "idSala" : "1",
     "tipoSala" : "4",
-    "capacidad" : "1"
+    "capacidad" : "101"
 }
 
 ###
 
-delete  http://localhost:3000/salas/eliminar
-Content-Type: application/json
-
-{
-    "idSala": "39"
-}
+delete  http://localhost:3000/salas/36
 
 //////////////////////////////////////////////////////////////
 //////////////////////// TIPOS-SALA ///////////////////////////
@@ -383,16 +289,10 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/tipos-sala
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/tipos-sala/id
-Content-Type: application/json
-
-{
-    "idTipoSala": "1"
-}
+get http://localhost:3000/tipos-sala/3
 
 ###
 
@@ -406,22 +306,16 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/tipos-sala/actualizar
+put  http://localhost:3000/tipos-sala/actualizar/6
 Content-Type: application/json
 
 {
-    "nombreTipoSala" : "1",
-    "idTipoSala" : "4"
+    "nombreTipoSala" : "2d"
 }
 
 ###
 
-delete  http://localhost:3000/tipos-sala/eliminar
-Content-Type: application/json
-
-{
-    "idTipoSala": "39"
-}
+delete  http://localhost:3000/tipos-sala/6
 
 //////////////////////////////////////////////////////////////
 //////////////////////// USUARIOS ///////////////////////////
@@ -429,16 +323,11 @@ Content-Type: application/json
 
 ###
 get http://localhost:3000/usuarios
-Content-Type: application/json
 
 ###
 
-get http://localhost:3000/usuarios/id
-Content-Type: application/json
+get http://localhost:3000/usuarios/3
 
-{
-    "idUsuario": "1"
-}
 
 ###
 
@@ -455,23 +344,17 @@ Content-Type: application/json
 
 ###
 
-put  http://localhost:3000/usuarios/actualizar
+put  http://localhost:3000/usuarios/actualizar/35
 Content-Type: application/json
 
 {
-    "idUsuario" : "1",
-    "nombreUsuario" : "4d",
-    "apellidoUsuario" : "1",
-    "cedulaUsuario" : "4",
-    "emailUsuario" : "4d",
-    "tlfUsuario" : "1"
+    "nombreUsuario" : "Emmanuel",
+    "apellidoUsuario" : "Bergel",
+    "cedulaUsuario" : "30542185",
+    "emailUsuario" : "juanjose123@gmail.com",
+    "tlfUsuario" : "1212-4578961"
 }
 
 ###
 
-delete  http://localhost:3000/usuarios/eliminar
-Content-Type: application/json
-
-{
-    "idUsuario": "39"
-}
+delete  http://localhost:3000/usuarios/4

@@ -68,8 +68,8 @@ const actualizarPrecioReserva = async (client, id_reserva, total_pago) => {
     return result.rows
 }
 
-const eliminarReserva = async (idReserva) => {
-    const result = await pool.query(`
+const eliminarReserva = async (client, idReserva) => {
+    const result = await client.query(`
         DELETE FROM reservas
         WHERE id_reserva = $1
         RETURNING *

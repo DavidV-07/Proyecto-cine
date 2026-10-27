@@ -10,15 +10,25 @@ const getAll = async (req, res) => {
 }
 
 const getForId = async (req, res) => {
-    const idReserva = req.body.idReserva
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
 
     try {
+        const result = await obtenerReservaPorId(id)
 
-        const result = await obtenerReservaPorId(idReserva)
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
+        }
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`Error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 
@@ -74,30 +84,37 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    const idReserva = req.body.idReserva
+    const {id} = req.params;
     const idUsuario = req.body.idUsuario
     const idFuncion = req.body.idFuncion
     const totalPago = req.body.totalPago
 
+    if(!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
     try {
-        if(!idReserva || !idUsuario || !idFuncion || !totalPago) {
-            throw(`campo vacio`)
-        }
 
-        const result = await actualizarReserva(idReserva, idUsuario, idFuncion, totalPago)
+        const result = await actualizarReserva(id, idUsuario, idFuncion, totalPago)
+
+        if (!result || result.length == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
+        }
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`Error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
     
 }
 
 const deleteReserva = async (req, res) => {
-    const idReserva = req.body.idReserva
+    const {id} = req.params;
     let client;
 
-    if (!idReserva) {
+    if (!id) {
         return res.status(400).json({ error: 'campo vacio' });
     }
 
@@ -106,11 +123,11 @@ const deleteReserva = async (req, res) => {
 
         await client.query(`BEGIN`)
 
-        await eliminarDetallesReservaPorIdReserva (client, idReserva)
-        await eliminarReserva(client, idReserva)
+        await eliminarDetallesReservaPorIdReserva (client, id)
+        await eliminarReserva(client, id)
 
         await client.query('COMMIT')
-        res.json(`Reserva ${idReserva} eliminada con Exito!`)
+        res.json(`Reserva ${id} eliminada con Exito!`)
     } catch (error) {
         if (client) {
             await client.query(`ROLLBACK`)

@@ -5,4 +5,6 @@ const crearAsientoSchema = joi.object({
     idSala : joi.number().integer().positive().required()
 })
 
-module.exports = {crearAsientoSchema}
+const actualizarAsientoSchema = crearAsientoSchema.fork([`codigoAsiento`, `idSala`], (schema) => schema.optional()).min(1);
+
+module.exports = {crearAsientoSchema, actualizarAsientoSchema}

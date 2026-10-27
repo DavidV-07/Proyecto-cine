@@ -7,4 +7,6 @@ const crearUsuarioSchema = joi.object({
     tlfUsuario : joi.string().trim().min(8).max(20).required()
 })
 
-module.exports = {crearUsuarioSchema}
+const actualizarUsuarioSchema = crearUsuarioSchema.fork([`nombreUsuario`, `apellidoUsuario`, `cedulaUsuario`, `emailUsuario`, `tlfUsuario`], (schema) => schema.optional()).min(1);
+
+module.exports = {crearUsuarioSchema, actualizarUsuarioSchema}

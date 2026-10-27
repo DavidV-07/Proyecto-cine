@@ -6,62 +6,87 @@ const obtenerTodo = async (req, res) => {
 }
 
 const obtenerPorId = async (req, res) => {
-    const idClasificacionEdad = req.body.idClasificacionEdad;
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
+
     try {
-        const result = await getForId(idClasificacionEdad);
-         if (!idClasificacionEdad) {
-            throw (`campo id vacio`)
+        const result = await getForId(id);
+
+        if (!result || result.rows == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`!error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 
 const crearClasificacionEdad = async (req, res) => {
+    const nombreClasificacionEdad = req.body.nombreClasificacionEdad;
 
     try {
-        const nombreClasificacionEdad = req.body.nombreClasificacionEdad;
-
         res.json(await create(nombreClasificacionEdad))
     } catch (error) {
-        res.status(400).send(`Error!\n\n${error}`)
+        res.status(400).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.mensaje
+        })
     }
 }
 
 const actualizarClasificacion = async (req, res) => {
-    const idClasificacionEdad = req.body.idClasificacionEdad
+    const {id} = req.params;
     const nombreClasificacionEdad = req.body.nombreClasificacionEdad
 
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
+
     try {
-        const result = await update(nombreClasificacionEdad, idClasificacionEdad);
 
-        if (!idClasificacionEdad) {
-            throw (`campo id vacio`)
-        }
+        const result = await update(nombreClasificacionEdad, id);
 
-        if (!nombreClasificacionEdad) {
-            throw (`campo nombre vacio`)
+        if (!result || result.lenght == 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`Error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 
 const deleteClasificacion = async (req, res) => {
-    const idClasificacionEdad = req.body.idClasificacionEdad;
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
+
     try {
-        const result = await deleteClasificacionEdad(idClasificacionEdad);
-         if (!idClasificacionEdad) {
-            throw (`campo id vacio`)
+
+        const result = await deleteClasificacionEdad(id);
+
+        if (!result || result.length === 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`!error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 

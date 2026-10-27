@@ -8,6 +8,8 @@ const crearReservaSchema = joi.object({
   idAsiento : joi.array().items(joi.number().integer().positive()).min(1).required()
 }); 
 
+const actualizarReservaSchema = crearReservaSchema.fork([`idUsuario`, `idFuncion`, `idAsiento`], (schema) => schema.optional()).min(1);
+
 module.exports = {
-  crearReservaSchema
+  crearReservaSchema, actualizarReservaSchema
 };

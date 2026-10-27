@@ -26,14 +26,14 @@ const crearAsiento = async (codigoAsiento, idSala) => {
     return result.rows
 }
 
-const actualizarAsiento = async (idAsiento, codigoAsiento, idSala) => {
+const actualizarAsiento = async (id, codigoAsiento, idSala) => {
     const result = await pool.query(`
         UPDATE asientos
         SET codigo_asientos = $2,
             id_sala = $3
         WHERE id_asiento = $1
         RETURNING *
-        `, [idAsiento, codigoAsiento, idSala])
+        `, [id, codigoAsiento, idSala])
 
     return result.rows
 }

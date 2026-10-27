@@ -6,4 +6,6 @@ const crearDetallesReservaSchema = joi.object({
     precioAplicado : joi.number().required()
 })
 
-module.exports = {crearDetallesReservaSchema}
+const actualizarDetallesReservaSchema = crearDetallesReservaSchema.fork([`idReserva`, `idAsiento`, `precioAplicado`], (schema) => schema.optional()).min(1);
+
+module.exports = {crearDetallesReservaSchema, actualizarDetallesReservaSchema}

@@ -6,4 +6,6 @@ const crearFuncionSchema = joi.object({
     fechaEmision : joi.date().iso().required()
 })
 
-module.exports = {crearFuncionSchema}
+const actualizarFuncionSchema = crearFuncionSchema.fork([`idSala`, `idPelicula`, `fechaEmision`], (schema) => schema.optional()).min(1);
+
+module.exports = {crearFuncionSchema, actualizarFuncionSchema}

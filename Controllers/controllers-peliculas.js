@@ -7,17 +7,25 @@ const getall = async (req, res) => {
 }
 
 const getForId = async (req, res) => {
-    const idPelicula = req.body.idPelicula
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
 
     try {
-        if (!idPelicula) {
-            throw (`campo vacio`)
+        const result = await obtenerPorId(id);
+
+        if (!result || result.length === 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
-        const result = await ObtenerPorId(idPelicula);
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`Error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 
@@ -30,44 +38,63 @@ const create = async (req, res) => {
     try {
         const result = await crearPelicula(nombrePelicula, categoria, clasificacionEdad, duracion);
 
-        if(!nombrePelicula || !categoria || !clasificacionEdad || !duracion) {
-            throw (`No puede haber un campo vacio!`)
-        }
-
         res.json(result)
     } catch (error) {
-        res.status(400).send(`Error\n\n${error}`)
+        res.status(400).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.detalles
+        })
     }
 }
 
 const update = async (req, res) => {
-    const idPelicula = req.body.idPelicula
+    const {id} = req.params;
     const nombrePelicula = req.body.nombrePelicula
     const categoria = req.body.categoria
     const clasificacionEdad = req.body.clasificacionEdad
     const duracion = req.body.duracion
 
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
     try {
-        const result = await actualizarPelicula(idPelicula, nombrePelicula, categoria, clasificacionEdad, duracion);
+
+        const result = await actualizarPelicula(id, nombrePelicula, categoria, clasificacionEdad, duracion);
+
+        if (!result || result.length === 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
+        }
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`Error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 
 const deletePelicula = async (req, res) => {
-    const idPelicula = req.body.idPelicula
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(400).json({mensaje : `campo vacio, id requerido`})
+    }
 
     try {
-        if (!idPelicula) {
-            throw (`campo vacio`)
+
+        const result = await eliminarPelicula(id);
+
+        if (!result || result.length === 0) {
+            return res.status(404).json({mensaje : `El ID ${id} no existe`})
         }
-        const result = await eliminarPelicula(idPelicula);
 
         res.json(result)
     } catch (error) {
-        res.status(400).send(`Error\n\n${error}`)
+        res.status(500).json({
+            mensaje : "Error interno del servidor",
+            detalles : error.message
+        });
     }
 }
 

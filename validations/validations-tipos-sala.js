@@ -4,4 +4,7 @@ const crearTipoSalaSchema = joi.object({
     precioAsiento : joi.number().trim().positive()
 })
 
-module.exports = {crearTipoSalaSchema}
+const actualizarTipoSalaSchema = crearTipoSalaSchema.fork([`nombreTipoSala`, `precioAsiento`], (schema) => schema.optional()).min(1);
+
+
+module.exports = {crearTipoSalaSchema, actualizarTipoSalaSchema}

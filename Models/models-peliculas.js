@@ -20,9 +20,8 @@ const obtenerTodo = async () => {
 
 const obtenerPorId = async (idPelicula) => {
     const result = await pool.query(`
-        SELECT FROM peliculas
+        SELECT * FROM peliculas
         WHERE id_pelicula = $1
-        RETURNING *
         `, [idPelicula])
 
     return result.rows

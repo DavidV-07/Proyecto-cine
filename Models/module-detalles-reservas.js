@@ -28,7 +28,7 @@ const obtenerDetallesPorId = async (idDetalles) => {
         WHERE dr.id_detalles = $1
         `, [idDetalles])
 
-    return result.rows
+    return result.rows[0]
 }
 
 const crearDetallesReserva = async (client, idReserva, idAsiento, precioAsiento) => {
@@ -41,7 +41,7 @@ const crearDetallesReserva = async (client, idReserva, idAsiento, precioAsiento)
     return result.rows
 }
 
-const actualizarDetallesReserva = async (idDetalles, idReserva, idAsiento, precioAplicado) => {
+const actualizarDetallesReserva = async (id, idReserva, idAsiento, precioAplicado) => {
     const result = await pool.query(`
         UPDATE detalles_reserva
         SET id_reserva = $2,
@@ -49,7 +49,7 @@ const actualizarDetallesReserva = async (idDetalles, idReserva, idAsiento, preci
             precio_aplicado = $4
         WHERE id_detalles = $1
         RETURNING *
-        `, [idDetalles, idReserva, idAsiento, precioAplicado]) 
+        `, [id, idReserva, idAsiento, precioAplicado]) 
         
     return result.rows
 }
@@ -66,7 +66,7 @@ const eliminarDetallesReserva = async (idDetalles) => {
 
 const eliminarDetallesReservaPorIdReserva = async (client, idReserva) => {
     const result = await client.query(`
-        delete FROM detalles_reserva
+        DELETE FROM detalles_reserva
         WHERE id_reserva = $1
         RETURNING *
         `, [idReserva])
